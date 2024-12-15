@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RON Seat Booking System</title>
+  <link rel="shortcut icon"
+    href="https://www.titancompany.in/sites/all/themes/titancorporate/assets/images/titan_ico1.jpg" type="image/jpeg" />
+
+  <style>
+    #second {
+      display: hidden;
+    }
+
+    body {
+      background-image: url("https://t4.ftcdn.net/jpg/03/32/54/93/240_F_332549362_Y2Nkokepqc6AbUfVvyAhrL1CjA9QpZND.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("https://www.watermeetsmoney.com/wp-content/uploads/2017/11/Header-background-2.png");
+      padding: 20px;
+      border: 1px solid black;
+      border-radius: 3px;
+    }
+
+    .logo img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .site-name {
+      margin: 0;
+      padding-left: 10px;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-family: Georgia, serif;
+      font-size: 50px;
+      text-shadow: 2px 2px 5px rgb(255, 255, 255);
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 440px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, .5);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wrapper .form-box {
+      width: 100%;
+      padding: 40px;
+    }
+
+    .form-box h1 {
+      font-size: 2em;
+      color: #162938;
+      text-align: center;
+    }
+
+    .input-box {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      border-bottom: 2px solid #162938;
+      margin: 30px 0;
+    }
+
+    .input-box label {
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      font-size: 1em;
+      color: #162938;
+      font-weight: 500;
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .input-box input:focus~label,
+    .input-box input:valid~label {
+      top: -5px;
+    }
+
+    .input-box input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1em;
+      color: #162938;
+      font-weight: 600;
+      padding: 0 35px 0 5px;
+    }
+
+    .input-box .icon {
+      position: absolute;
+      right: 8px;
+      font-size: 1.2em;
+      color: #162938;
+      line-height: 57px;
+    }
+
+    .btn {
+      width: 100%;
+      height: 45px;
+      background: #162938;
+      border: none;
+      outline: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="first">
+
+    <header>
+      <div class="logo">
+        <img src="https://assets-netstorage.groww.in/stock-assets/brand_logo/INE280A01028/Titan.png" alt="Logo">
+      </div>
+      <h1 class="site-name">Titan Company Limited</h1>
+    </header>
+
+    <div class="wrapper">
+      <div class="form-box login">
+        <h1>Login</h1>
+        <form id="loginForm" action="book.html">
+          <div class="input-box">
+            <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+            <input type="text" id="employeeID" maxlength="9" required>
+            <label>Employee ID</label>
+          </div>
+          <p class="error" id="idError">Employee ID must be 9 alphanumeric characters.</p>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+            <input type="email" id="employeeEmail" required>
+            <label>Employee Email</label>
+          </div>
+          <p class="error" id="emailError">Please enter a valid email address.</p>
+          <button id="responsiveButton" type="submit" class="btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      const employeeID = document.getElementById('employeeID');
+      const employeeEmail = document.getElementById('employeeEmail');
+      const idError = document.getElementById('idError');
+      const emailError = document.getElementById('emailError');
+
+      loginForm.addEventListener('submit', function (event) {
+        let isValid = true;
+
+        // Validate Employee ID
+        const idRegex = /^[a-zA-Z0-9]{9}$/;
+        if (!idRegex.test(employeeID.value)) {
+          isValid = false;
+          idError.style.display = 'block';
+        } else {
+          idError.style.display = 'none';
+        }
+
+        // Validate Email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(employeeEmail.value)) {
+          isValid = false;
+          emailError.style.display = 'block';
+        } else {
+          emailError.style.display = 'none';
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          event.preventDefault();
+        }
+      });
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </div>
+</body>
+
+</html>
